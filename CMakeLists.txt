@@ -8,7 +8,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/*.cc"
-    "${CMAKE_SOURCE_DIR}/src/*.cpp"
 )
 
 add_executable(lab5 ${SOURCES})
@@ -16,3 +15,14 @@ add_executable(lab5 ${SOURCES})
 target_include_directories(lab5 PRIVATE
     "${CMAKE_SOURCE_DIR}/src"
 )
+
+target_compile_options(lab5 PRIVATE
+    -O3                  # maximum optimization level
+    -march=native        # vectorizes code
+    -mtune=native        # tune pipeline scheduling
+    -funroll-loops       # unrolls loops
+    -fomit-frame-pointer # frees up an extra CPU register
+    -flto                # LTO
+)
+# LTO for linker
+target_link_options(lab5 PRIVATE -flto -O3)
