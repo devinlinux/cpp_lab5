@@ -1,12 +1,16 @@
 //  imports
 #include <iostream>
+#include <memory>
+
 #include "util.h"
 #include "elementary.h"
 #include "efficient.h"
 
 int main() {
 
-    long data[constants::MAXSIZE];
+    std::unique_ptr<long[]> data(
+            new long[constants::MAXSIZE]
+    );
     std::size_t len = 0;
 
     int op = -1;
@@ -31,7 +35,7 @@ int main() {
                 break;
             }
             case 1: {
-                len = read_data(constants::INPUT_PATH.data(), data);
+                len = read_data(constants::INPUT_PATH.data(), data.get());
                 if (len <= 0) {
                     std::cerr << "No data read from file\n";
                     op = 0;
@@ -41,62 +45,62 @@ int main() {
             }
             case 2: {
                 double time = benchmark([&]() {
-                    bubble_sort(data, len);
+                    bubble_sort(data.get(), len);
                 });
 
                 std::cout << "Bubble sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "BUBBLE").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             case 3: {
                 double time = benchmark([&]() {
-                    insertion_sort(data, len);
+                    insertion_sort(data.get(), len);
                 });
 
                 std::cout << "Insertion sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "INSERTION").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             case 4: {
                 double time = benchmark([&]() {
-                    selection_sort(data, len);
+                    selection_sort(data.get(), len);
                 });
 
                 std::cout << "Selection sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "SELECTION").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             case 5: {
                 double time = benchmark([&]() {
-                    heapsort(data, len);
+                    heapsort(data.get(), len);
                 });
 
                 std::cout << "Heapsort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "HEAP").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             case 6: {
                 double time = benchmark([&]() {
-                    mergesort(data, len);
+                    mergesort(data.get(), len);
                 });
 
                 std::cout << "Mergesort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "MERGE").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             case 7: {
                 double time = benchmark([&]() {
-                    quicksort(data, len);
+                    quicksort(data.get(), len);
                 });
 
                 std::cout << "Quicksort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "QUICK").c_str(),
-                        data, len);
+                        data.get(), len);
                 break;
             }
             default: {
