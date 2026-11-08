@@ -44,7 +44,7 @@ int main() {
                     bubble_sort(data, len);
                 });
 
-                std::cout << "Bubble sort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Bubble sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "BUBBLE").c_str(),
                         data, len);
                 break;
@@ -54,7 +54,7 @@ int main() {
                     insertion_sort(data, len);
                 });
 
-                std::cout << "Insertion sort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Insertion sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "INSERTION").c_str(),
                         data, len);
                 break;
@@ -64,7 +64,7 @@ int main() {
                     selection_sort(data, len);
                 });
 
-                std::cout << "Selection sort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Selection sort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "SELECTION").c_str(),
                         data, len);
                 break;
@@ -74,7 +74,7 @@ int main() {
                     heapsort(data, len);
                 });
 
-                std::cout << "Heapsort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Heapsort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "HEAP").c_str(),
                         data, len);
                 break;
@@ -84,7 +84,7 @@ int main() {
                     mergesort(data, len);
                 });
 
-                std::cout << "Mergesort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Mergesort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "MERGE").c_str(),
                         data, len);
                 break;
@@ -94,7 +94,7 @@ int main() {
                     quicksort(data, len);
                 });
 
-                std::cout << "Quicksort ran for: " << time / 1000.0 << "seconds\n";
+                std::cout << "Quicksort ran for: " << time / 1000.0 << "s\n";
                 write_data((std::string(constants::OUTPUT_PATH) + "QUICK").c_str(),
                         data, len);
                 break;
