@@ -2,35 +2,31 @@
 #define UTIL_H_
 
 //  imports
+#include <string_view>
 #include <fstream>
+#include <chrono>
 
-inline void swap(long& a, long& b) noexcept {
-    long temp = a;
-    a = b;
-    b = temp;
+namespace constants {
+    constexpr std::string_view INPUT_PATH = "lab5_input.txt";
+    constexpr std::string_view OUTPUT_PATH = "lab5_output_";
+
+    constexpr size_t MAXSIZE = 2100000;
 }
 
-std::size_t read_data(const char* path, long* data) {
-    std::ifstream file(path);
-    if (!file)
-        throw std::runtime_error("Failed to open input file");
+inline void swap(long& a, long& b) noexcept;
 
-    std::size_t len = 0;
-    while (file >> data[len]) len++;
+[[nodiscard]] std::size_t read_data(const char* path, long* data);
 
-    return len;
-}
+void write_data(const char* path, const long* data, std::size_t len);
 
-void write_data(const char* path, const long* data, std::size_t len) {
-    std::ofstream file(path);
-    if (!file)
-        throw std::runtime_error("Failed to open output file");
+template <typename Func>
+[[nodiscard]] double benchmark(Func&& func) noexcept {
+    auto start = std::chrono::steady_clock::now();
 
-    for (std::size_t i = 0; i < len; i++) {
-        if (i != 0)
-            file << ' ';
-        file << data[i];
-    }
+    func();
+
+    auto end = std::chrono::steady_clock::now();
+    return std::chrono::duration<double, std::milli>(end - start).count();
 }
 
 #endif  //  UTIL_H_
