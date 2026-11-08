@@ -30,10 +30,14 @@ int main() {
         std::cin >> op;
 
         switch (op) {
+
+            //  QUIT
             case 0: {
                 std::cout << "Exiting program...\n";
                 break;
             }
+
+            //  READ DATA
             case 1: {
                 len = read_data(constants::INPUT_PATH.data(), data.get());
                 if (len <= 0) {
@@ -43,6 +47,8 @@ int main() {
                     std::cout << "Read " << len << " items from the file\n";
                 break;
             }
+
+            //  BUBBLE SORT
             case 2: {
                 double time = benchmark([&]() {
                     bubble_sort(data.get(), len);
@@ -53,6 +59,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  INSERTION SORT
             case 3: {
                 double time = benchmark([&]() {
                     insertion_sort(data.get(), len);
@@ -63,6 +71,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  SELECTION SORT
             case 4: {
                 double time = benchmark([&]() {
                     selection_sort(data.get(), len);
@@ -73,6 +83,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  HEAPSORT
             case 5: {
                 double time = benchmark([&]() {
                     heapsort(data.get(), len);
@@ -83,6 +95,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  MERGESORT
             case 6: {
                 double time = benchmark([&]() {
                     mergesort(data.get(), len);
@@ -93,6 +107,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  QUICKSORT
             case 7: {
                 double time = benchmark([&]() {
                     quicksort(data.get(), len);
@@ -103,6 +119,8 @@ int main() {
                         data.get(), len);
                 break;
             }
+
+            //  INVALID INPUT
             default: {
                 std::cout << "Invalid option, please enter an integer from 0-7\n";
                 break;
