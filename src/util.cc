@@ -1,11 +1,5 @@
 #include "util.h"
 
-inline void swap(long& a, long& b) noexcept {
-    long temp = a;
-    a = b;
-    b = temp;
-}
-
 std::size_t read_data(const char* path, long* data) {
     std::ifstream file(path);
     if (!file)
