@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -rf build
-cmake -B build && cmake --build build && clear && ./build/lab5
+cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build && clear && ./build/lab5
