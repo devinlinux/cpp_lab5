@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+ int n;
+ while(n!=0){
+	cout << "(1) Read Data from input file
+(2) Sort Data using A Sort
+(3) Sort Data using B Sort
+(4) Sort Data using C Sort
+(5) Sort Data using D Sort
+(6) Sort Data using E Sort
+(7) Sort Data using F Sort
+(0) Exi";
+
+	}
+    return 0;
+}
