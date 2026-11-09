@@ -20,9 +20,9 @@ int main() {
         std::cout << "(2) Sort data using bubble sort\n";
         std::cout << "(3) Sort data using insertion sort\n";
         std::cout << "(4) Sort data using selection sort\n";
-        std::cout << "(7) Sort data using heapsort\n";
-        std::cout << "(5) Sort data using mergesort\n";
-        std::cout << "(6) Sort data using quicksort\n";
+        std::cout << "(5) Sort data using heapsort\n";
+        std::cout << "(6) Sort data using mergesort\n";
+        std::cout << "(6) Sort data using radix sort\n";
         std::cout << "(0) Exit\n";
 
         std::cout << ">> ";
@@ -108,14 +108,14 @@ int main() {
                 break;
             }
 
-            //  QUICKSORT
+            //  RADIX Sort
             case 7: {
                 double time = benchmark([&]() {
-                    quicksort(data.get(), len);
+                    radixsort(data.get(), len);
                 });
 
-                std::cout << "Quicksort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "QUICK").c_str(),
+                std::cout << "Radix sort ran for: " << time / 1000.0 << "s\n";
+                write_data((std::string(constants::OUTPUT_PATH) + "RADIX").c_str(),
                         data.get(), len);
                 break;
             }
