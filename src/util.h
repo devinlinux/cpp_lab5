@@ -13,7 +13,11 @@ namespace constants {
     constexpr size_t MAXSIZE = 2100000;
 }
 
-inline void swap(long& a, long& b) noexcept;
+inline void swap(long& a, long& b) noexcept {
+    long temp = a;
+    a = b;
+    b = temp;
+}
 
 [[nodiscard]] std::size_t read_data(const char* path, long* data);
 
