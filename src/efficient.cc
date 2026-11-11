@@ -15,7 +15,7 @@ void mergesort(long *data, std::size_t len) noexcept {
 	std::size_t mid =len/2;
 	mergesort(data,mid);
 	mergesort(data+mid,len-mid);
-	long temp=new long[len];
+	long* temp=new long[len];
 	std::size_t i=0;
 	std::size_t j=mid;
 	std::size_t k=0;
@@ -23,7 +23,7 @@ void mergesort(long *data, std::size_t len) noexcept {
 		if(data[i]<=data[j]){
 			temp[k++]=data[i++];
 		}else{
-			temp[k++]=data[j++]
+			temp[k++]=data[j++];
 		}
 	}
 	while (j<len){
