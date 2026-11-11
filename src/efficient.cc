@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <cstring>
 #include "omp.h"
+#include "util.h"
 
 void heapsort(long *data, std::size_t len) noexcept {
 	if(len<=1){
@@ -18,7 +19,7 @@ void heapsort(long *data, std::size_t len) noexcept {
 				largest++;
 
 			if (data[first] < data[largest]){
-				std::swap(data[first], data[largest]);
+				swap(data[first], data[largest]);
 				first = largest;
 				largest = 2* first + 1;
 			}
@@ -28,8 +29,8 @@ void heapsort(long *data, std::size_t len) noexcept {
 		}
 	}
 
-	for (std:size_t i = len - 1; i >= 1; --i){
-		std::swap(data[0], data[i]);
+	for (std::size_t i = len - 1; i >= 1; --i){
+		swap(data[0], data[i]);
 
 		std::size_t first = 0;
 		std::size_t largest = 1;
@@ -37,7 +38,7 @@ void heapsort(long *data, std::size_t len) noexcept {
 			if (largest < i -1 && data[largest] < data[largest + 1])
 				largest++;
 			if (data[first] < data[largest]){
-				std::swap(data[first], data[largest]);
+				swap(data[first], data[largest]);
 				first = largest;
 				largest = 2 * first + 1;
 
