@@ -4,5 +4,6 @@ bin/
 
 .eclipse
 .metadata
+.project
 
 lab5_output*
