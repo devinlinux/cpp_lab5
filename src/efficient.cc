@@ -9,6 +9,29 @@ void heapsort(long *data, std::size_t len) noexcept {
 }
 
 void mergesort(long *data, std::size_t len) noexcept {
+	if(len<=1){
+		return;
+	}
+	std::size_t mid =len/2;
+	mergeSort(data,mid);
+	mergeSort(data+mid,len-mid);
+	std::vector<long> temp(len);
+	std::size_t i=0;
+	std::size_t j=mid;
+	std::size_t k=0;
+	while(i<mid &&j<n){
+		if(data[i]<=data[j]){
+			temp[k++]=data[i++];
+		}else{
+			temp[k++]=data[j++]
+		}
+	}
+	while (j<n){
+		temp[k++]=arr[j++];
+	}
+	for(std::size_t index=0;index<len;index++){
+		arr[index]=temp[index];
+	}
 }
 
 void radixsort(long *data, std::size_t len) noexcept {
