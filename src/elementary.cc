@@ -25,7 +25,6 @@ void insertion_sort(long *data, std::size_t len) noexcept {
 			j--;
 		}
 		data[j+1]=key;
-
 	}
 
 }
