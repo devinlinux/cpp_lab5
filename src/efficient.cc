@@ -19,7 +19,7 @@ void mergesort(long *data, std::size_t len) noexcept {
 	std::size_t i=0;
 	std::size_t j=mid;
 	std::size_t k=0;
-	while(i<mid &&j<n){
+	while(i<mid &&j<len){
 		if(data[i]<=data[j]){
 			temp[k++]=data[i++];
 		}else{
