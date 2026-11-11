@@ -6,6 +6,48 @@
 #include "omp.h"
 
 void heapsort(long *data, std::size_t len) noexcept {
+	if(len<=1){
+		return;
+	}
+
+	for(std::size_t i = len / 2; i > 0; --i){
+		std::size_t first = i -1;
+		std::size_t largest = 2* first +1;
+		while (largest <= len -1){
+			if (largest < len - 1 && data[largest] < data[largest +1])
+				largest++;
+
+			if (data[first] < data[largest]){
+				std::swap(data[first], data[largest]);
+				first = largest;
+				largest = 2* first + 1;
+			}
+
+			else
+				break;
+		}
+	}
+
+	for (std:size_t i = len - 1; i >= 1; --i){
+		std::swap(data[0], data[i]);
+
+		std::size_t first = 0;
+		std::size_t largest = 1;
+		while (largest <= i -1){
+			if (largest < i -1 && data[largest] < data[largest + 1])
+				largest++;
+			if (data[first] < data[largest]){
+				std::swap(data[first], data[largest]);
+				first = largest;
+				largest = 2 * first + 1;
+
+			}
+			else
+				break;
+		}
+
+	}
+
 }
 
 void mergesort(long *data, std::size_t len) noexcept {
