@@ -26,12 +26,13 @@ void mergesort(long *data, std::size_t len) noexcept {
 			temp[k++]=data[j++]
 		}
 	}
-	while (j<n){
-		temp[k++]=arr[j++];
+	while (j<len){
+		temp[k++]=data[j++];
 	}
 	for(std::size_t index=0;index<len;index++){
-		arr[index]=temp[index];
+		data[index]=temp[index];
 	}
+	delete[] temp;
 }
 
 void radixsort(long *data, std::size_t len) noexcept {
