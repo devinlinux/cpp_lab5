@@ -10,7 +10,7 @@ namespace constants {
     constexpr std::string_view INPUT_PATH = "lab5_input.txt";
     constexpr std::string_view OUTPUT_PATH = "lab5_output_";
 
-    constexpr size_t MAXSIZE = 2100000;
+    constexpr size_t MAXSIZE = 500;
 }
 
 inline void swap(long& a, long& b) noexcept {

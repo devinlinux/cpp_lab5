@@ -6,7 +6,7 @@ std::size_t read_data(const char* path, long* data) {
         throw std::runtime_error("Failed to open input file");
 
     std::size_t len = 0;
-    while (file >> data[len]) len++;
+    while (file >> data[len] && len < constants::MAXSIZE) len++;
 
     return len;
 }
