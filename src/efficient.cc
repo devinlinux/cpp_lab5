@@ -13,9 +13,9 @@ void mergesort(long *data, std::size_t len) noexcept {
 		return;
 	}
 	std::size_t mid =len/2;
-	mergeSort(data,mid);
-	mergeSort(data+mid,len-mid);
-	std::vector<long> temp(len);
+	mergesort(data,mid);
+	mergesort(data+mid,len-mid);
+	long temp=new long[len];
 	std::size_t i=0;
 	std::size_t j=mid;
 	std::size_t k=0;
