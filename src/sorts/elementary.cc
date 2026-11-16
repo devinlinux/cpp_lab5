@@ -1,5 +1,5 @@
 #include "elementary.h"
-#include "util.h"
+#include "../util/util.h"
 
 void bubble_sort(long *data, std::size_t len) noexcept {
     if (len < 2) return;

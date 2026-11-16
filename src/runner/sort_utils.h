@@ -4,8 +4,8 @@
 #include <array>
 #include <string>
 
-#include "elementary.h"
-#include "efficient.h"
+#include "../sorts/elementary.h"
+#include "../sorts/efficient.h"
 
 using SortingFunc = void(*)(long[], std::size_t) noexcept;
 

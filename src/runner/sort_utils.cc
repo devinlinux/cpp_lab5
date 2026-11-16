@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 
-#include "util.h"
+#include "../util/util.h"
 
 std::size_t load_input(long *data) {
     const std::string path = input_path();

@@ -4,9 +4,7 @@
 #include <memory>
 
 #include "sort_utils.h"
-#include "util.h"
-#include "elementary.h"
-#include "efficient.h"
+#include "../util/util.h"
 
 namespace options {
     constexpr int EXIT = 0;

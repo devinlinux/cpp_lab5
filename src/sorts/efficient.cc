@@ -1,7 +1,7 @@
 #include "efficient.h"
 
 #include <cstring>
-#include "util.h"
+#include "../util/util.h"
 
 //  function prototypes
 std::size_t partition(long* data, std::size_t len) noexcept;
