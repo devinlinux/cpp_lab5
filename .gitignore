@@ -6,4 +6,4 @@ bin/
 .metadata
 .project
 
-lab5_output*
+res/out

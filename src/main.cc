@@ -1,132 +1,58 @@
 //  imports
 #include <iostream>
-#include <memory>
+#include <iomanip>
 
-#include "util.h"
-#include "elementary.h"
-#include "efficient.h"
+#include "driver.h"
 
-int main() {
+//  function prototypes
+bool is_auto_flag(std::string_view arg);
+void bulk_report(const SortResult results[], std::size_t len);
 
-    std::unique_ptr<long[]> data(
-            new long[constants::MAXSIZE]
-    );
-    std::size_t len = 0;
-
-    int op = -1;
-    while (op != 0) {
-        std::cout << "======= SORTING ALGORITHMS =======\n";
-        std::cout << "(1) Read data from input file\n";
-        std::cout << "(2) Sort data using bubble sort\n";
-        std::cout << "(3) Sort data using insertion sort\n";
-        std::cout << "(4) Sort data using selection sort\n";
-        std::cout << "(5) Sort data using heapsort\n";
-        std::cout << "(6) Sort data using mergesort\n";
-        std::cout << "(7) Sort data using radix sort\n";
-        std::cout << "(0) Exit\n";
-
-        std::cout << ">> ";
-
-        std::cin >> op;
-
-        switch (op) {
-
-            //  QUIT
-            case 0: {
-                std::cout << "Exiting program...\n";
-                break;
-            }
-
-            //  READ DATA
-            case 1: {
-                len = read_data(constants::INPUT_PATH.data(), data.get());
-                if (len <= 0) {
-                    std::cerr << "No data read from file\n";
-                    op = 0;
-                } else
-                    std::cout << "Read " << len << " items from the file\n";
-                break;
-            }
-
-            //  BUBBLE SORT
-            case 2: {
-                double time = benchmark([&]() {
-                    bubble_sort(data.get(), len);
-                });
-
-                std::cout << "Bubble sort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "BUBBLE").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  INSERTION SORT
-            case 3: {
-                double time = benchmark([&]() {
-                    insertion_sort(data.get(), len);
-                });
-
-                std::cout << "Insertion sort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "INSERTION").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  SELECTION SORT
-            case 4: {
-                double time = benchmark([&]() {
-                    selection_sort(data.get(), len);
-                });
-
-                std::cout << "Selection sort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "SELECTION").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  HEAPSORT
-            case 5: {
-                double time = benchmark([&]() {
-                    heapsort(data.get(), len);
-                });
-
-                std::cout << "Heapsort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "HEAP").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  MERGESORT
-            case 6: {
-                double time = benchmark([&]() {
-                    mergesort(data.get(), len);
-                });
-
-                std::cout << "Mergesort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "MERGE").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  RADIX Sort
-            case 7: {
-                double time = benchmark([&]() {
-                    radixsort(data.get(), len);
-                });
-
-                std::cout << "Radix sort ran for: " << time / 1000.0 << "s\n";
-                write_data((std::string(constants::OUTPUT_PATH) + "RADIX").c_str(),
-                        data.get(), len);
-                break;
-            }
-
-            //  INVALID INPUT
-            default: {
-                std::cout << "Invalid option, please enter an integer from 0-7\n";
-                break;
-            }
+int main(int argc, char* argv[]) {
+    try {
+        if (argc < 2) {
+            run_interactive();
+        } else if (is_auto_flag(argv[1])) {
+            SortResult results[NUM_ALGOS];
+            const std::size_t len = run_autonomous(results);
+            bulk_report(results, len);
+        } else {
+            std::cerr << "Unknown option: " << argv[1] <<
+                " run with no arguments for interactive mode, or -a / --auto\n";
         }
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+        return 1;
     }
 
     return 0;
+}
+
+//  simple clap
+bool is_auto_flag(std::string_view arg) {
+    return arg == "-a" || arg == "--auto";
+}
+
+void bulk_report(const SortResult results[], std::size_t len) {
+    if (len == 0) {
+        std::cout << "No results to report\n";
+        return;
+    }
+
+    std::cout << "\n=========== TIMING REPORT ===========\n"
+        << "Items sorted: " << results[0].len << "\n\n"
+        << std::left  << std::setw(16) << "Algorithm"
+        << std::right << std::setw(14) << "Time (s)"
+        << std::setw(10) << "Sorted"
+        << "  Output\n"
+        << std::string(70, '-') << '\n';
+
+    std::cout << std::fixed << std::setprecision(6);
+    for (std::size_t i = 0; i < len; i++) {
+        const SortResult& r = results[i];
+        std::cout << std::left  << std::setw(16) << r.name
+            << std::right << std::setw(14) << r.ms / 1000.0
+            << std::setw(10) << (r.sorted ? "yes" : "NO")
+            << "  " << r.output_file << '\n';
+    }
 }
