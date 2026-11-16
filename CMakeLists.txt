@@ -14,8 +14,6 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 
 add_executable(lab5 ${SOURCES})
 
-target_link_libraries(lab5 PRIVATE OpenMP::OpenMP_CXX)
-
 target_include_directories(lab5 PRIVATE
     "${CMAKE_SOURCE_DIR}/src"
 )

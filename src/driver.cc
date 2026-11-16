@@ -24,7 +24,7 @@ void print_menu() {
     std::cout << "(4) Sort data using selection sort\n";
     std::cout << "(5) Sort data using heapsort\n";
     std::cout << "(6) Sort data using mergesort\n";
-    std::cout << "(7) Sort data using radix sort\n";
+    std::cout << "(7) Sort data using quicksort\n";
     std::cout << "(0) Exit\n";
 
     std::cout << ">> ";

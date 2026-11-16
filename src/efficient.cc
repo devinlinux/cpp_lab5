@@ -1,10 +1,10 @@
 #include "efficient.h"
 
-#include <climits>
-#include <type_traits>
 #include <cstring>
-#include "omp.h"
 #include "util.h"
+
+//  function prototypes
+std::size_t partition(long* data, std::size_t len) noexcept;
 
 void heapsort(long *data, std::size_t len) noexcept {
 	if(len<=1){
@@ -78,94 +78,40 @@ void mergesort(long *data, std::size_t len) noexcept {
 	delete[] temp;
 }
 
-void radixsort(long *data, std::size_t len) noexcept {
-    if (len <= 1)
-        return;
-
-    typedef typename std::make_unsigned<long>::type ULong;
-
-    const int RADIX = 256;
-    const int BITS = 8;
-    const int PASSES = sizeof(long);
-
-    const int thread_count = omp_get_max_threads();
-
-    long* temp = new long[len];
-
-    std::size_t* histogram = new std::size_t[thread_count * RADIX];
-    std::size_t* offsets = new std::size_t[thread_count * RADIX];
-
-    long* src = data;
-    long* dst = temp;
-
-    const ULong SIGN_MASK = static_cast<ULong>(1) << (sizeof(long) * CHAR_BIT - 1);
-
-    for (int pass = 0; pass < PASSES; pass++) {
-        const int shift = pass * BITS;
-
-        int actual_threads = 1;
-
-        #pragma omp parallel num_threads(thread_count) shared(src, dst, histogram, offsets, actual_threads)
-        {
-            const int tid = omp_get_thread_num();
-
-            #pragma omp single
-            {
-                actual_threads = omp_get_num_threads();
-            }
-
-            const std::size_t start = len * tid / actual_threads;
-            const std::size_t end = len * (tid + 1) / actual_threads;
-
-            std::size_t* hist = histogram + tid * RADIX;
-            std::size_t* pos = offsets + tid * RADIX;
-
-            for (int b = 0; b < RADIX; b++)
-                hist[b] = 0;
-
-            for (std::size_t i = start; i < end; i++) {
-                ULong key = static_cast<ULong>(src[i]) ^ SIGN_MASK;
-
-                unsigned int bucket =
-                    static_cast<unsigned int>((key >> shift) & 0xFFUL);
-
-                hist[bucket]++;
-            }
-
-            #pragma omp barrier
-
-            #pragma omp single
-            {
-                std::size_t sum = 0;
-
-                for (int b = 0; b < RADIX; b++) {
-                    for (int t = 0; t < actual_threads; t++) {
-                        std::size_t index =
-                            t * RADIX + b;
-
-                        offsets[index] = sum;
-                        sum += histogram[index];
-                    }
-                }
-            }
-
-            for (std::size_t i = start; i < end; ++i) {
-                ULong key = static_cast<ULong>(src[i]) ^ SIGN_MASK;
-                unsigned int bucket = static_cast<unsigned int>((key >> shift) & 0xFFUL);
-
-                dst[pos[bucket]++] = src[i];
-            }
+void quicksort(long *data, std::size_t len) noexcept {
+    while (len > 1) {
+        const std::size_t split = partition(data, len);
+        if (split < len - split) {
+            quicksort(data, split);
+            data += split;
+            len -= split;
+        } else {
+            quicksort(data + split, len - split);
+            len = split;
         }
-
-        long* swap = src;
-        src = dst;
-        dst = swap;
     }
+}
 
-    if (src != data)
-        std::memcpy(data, src, len * sizeof(long));
+std::size_t partition(long *data, std::size_t len) noexcept {
+    const std::size_t last = len - 1;
+    const std::size_t mid = last / 2;
 
-    delete[] temp;
-    delete[] histogram;
-    delete[] offsets;
+    if (data[mid] < data[0]) swap(data[mid], data[0]);
+    if (data[last] < data[0]) swap(data[last], data[0]);
+    if (data[last] < data[mid]) swap(data[last], data[mid]);
+
+    const long pivot = data[mid];
+    std::size_t i = 0;
+    std::size_t j = last;
+
+    while (true) {
+        while (data[i] < pivot) i++;
+        while (pivot < data[j]) j--;
+
+        if (i >= j) return j + 1;
+
+        swap(data[i], data[j]);
+        i++;
+        j--;
+    }
 }

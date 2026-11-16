@@ -21,7 +21,7 @@ inline constexpr std::array<SortingAlgo, 6> ALGORITHMS {{
     { "Selection Sort", "SELECTION", selection_sort },
     { "Heapsort", "HEAP", heapsort },
     { "Mergesort", "MERGE", mergesort },
-    { "Radix sort", "RADIX", radixsort },
+    { "Quicksort", "QUICK", quicksort },
 }};
 
 inline constexpr std::size_t NUM_ALGOS = ALGORITHMS.size();
