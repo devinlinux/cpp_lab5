@@ -16,7 +16,7 @@ namespace constants {
     constexpr std::string_view OUTPUT_PREFIX = "lab5_";
     constexpr std::string_view OUTPUT_SUFFIX = "_out.txt";
 
-    constexpr size_t MAXSIZE = 500;
+    constexpr size_t MAXSIZE = 2000000;
 }
 
 inline void swap(long& a, long& b) noexcept {
