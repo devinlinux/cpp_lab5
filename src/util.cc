@@ -1,5 +1,7 @@
 #include "util.h"
 
+#include <filesystem>
+
 std::string input_path() {
     return std::string(constants::INPUT_DIR) +
         std::string(constants::INPUT_PATH);
@@ -23,6 +25,8 @@ std::size_t read_data(const char* path, long* data) {
 }
 
 void write_data(const char* path, const long* data, std::size_t len) {
+    std::filesystem::create_directories(std::filesystem::path(path).parent_path());
+
     std::ofstream file(path);
     if (!file)
         throw std::runtime_error("Failed to open output file");
