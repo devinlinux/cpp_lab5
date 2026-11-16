@@ -14,16 +14,16 @@ void bubble_sort(long *data, std::size_t len) noexcept {
 }
 
 void insertion_sort(long *data, std::size_t len) noexcept {
-    for(std::size_t i=1; i<len;i++){
-        long key=data[i];
-        std::size_t j=i-1;
-        while(j>0&&data[j]>key){
-            data[j+1]=data[j];
+    for (std::size_t i = 1; i < len; i++) {
+        const long key = data[i];
+
+        std::size_t j = i;
+        while (j > 0 && data[j - 1] > key) {
+            data[j] = data[j - 1];
             j--;
         }
-        data[j+1]=key;
+        data[j] = key;
     }
-
 }
 
 void selection_sort(long *data, std::size_t len) noexcept {

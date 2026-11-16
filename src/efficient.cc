@@ -52,30 +52,31 @@ void heapsort(long *data, std::size_t len) noexcept {
 }
 
 void mergesort(long *data, std::size_t len) noexcept {
-	if(len<=1){
-		return;
-	}
-	std::size_t mid =len/2;
-	mergesort(data,mid);
-	mergesort(data+mid,len-mid);
-	long* temp=new long[len];
-	std::size_t i=0;
-	std::size_t j=mid;
-	std::size_t k=0;
-	while(i<mid &&j<len){
-		if(data[i]<=data[j]){
-			temp[k++]=data[i++];
-		}else{
-			temp[k++]=data[j++];
-		}
-	}
-	while (j<len){
-		temp[k++]=data[j++];
-	}
-	for(std::size_t index=0;index<len;index++){
-		data[index]=temp[index];
-	}
-	delete[] temp;
+    if (len <= 1) return;
+
+    const std::size_t mid = len / 2;
+    mergesort(data, mid);
+    mergesort(data + mid, len - mid);
+
+    long* temp = new long[len];
+    std::size_t i = 0;
+    std::size_t j = mid;
+    std::size_t k = 0;
+
+    while (i < mid && j < len) {
+        if (data[i] <= data[j])
+            temp[k++] = data[i++];
+        else
+            temp[k++] = data[j++];
+    }
+
+    while (i < mid) temp[k++] = data[i++];
+    while (j < len) temp[k++] = data[j++];
+
+    for (std::size_t idx = 0; idx < len; idx++)
+        data[idx] = temp[idx];
+
+    delete[] temp;
 }
 
 void quicksort(long *data, std::size_t len) noexcept {
